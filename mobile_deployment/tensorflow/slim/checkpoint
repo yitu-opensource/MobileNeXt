@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/e0357894/zhoudaquan/eccv20/tensorflow-train-to-mobile-tutorial/models/research/slim/model.ckpt-0"
+all_model_checkpoint_paths: "/home/e0357894/zhoudaquan/eccv20/tensorflow-train-to-mobile-tutorial/models/research/slim/model.ckpt-0"
