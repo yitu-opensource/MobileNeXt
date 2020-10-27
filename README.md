@@ -1,3 +1,13 @@
+
+
+## Updates 
+
+### Oct 26, 2020
+* Code adapted from repo [yitu-opensource MobileNeXt](https://github.com/yitu-opensource/MobileNeXt)
+
+### Oct 27, 2020
+* Code for detection is [available](https://github.com/Andrew-Qibin/ssdlite-pytorch-mobilenext)
+
 # rethinking_bottleneck_design
 This repo contains the code for the paper Rethinking Bottleneck Structure for Efficient Mobile Network Design ([ECCV 2020](https://arxiv.org/pdf/2007.02269.pdf))
 
@@ -101,7 +111,10 @@ change to mobile deployment folder:
 
 After generating the mobile model based on tf lite, copy the model to the assets folder under the android studio project
 
+## Code for detection on both Pascal VOC and COCO
+
+Please refer to this [repo](https://github.com/Andrew-Qibin/ssdlite-pytorch-mobilenext). Our MobileNeXt improves MobileNetV2 by
+1% (from 22.3% to 23.3%) in terms of mAP under the same settings.
 
 ## To do : 
 1. Add in Android project for apk generation
-2. Add in code for detection

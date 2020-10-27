@@ -21,9 +21,9 @@ def _cfg(url='', **kwargs):
 
 
 default_cfgs = {
-    'efficienti2rnet_s': _cfg(
+    'efficientmnext_s': _cfg(
         url='',),
-    'efficienti2rnet_l': _cfg(
+    'efficientmnext_l': _cfg(
         url='',
         input_size=(3, 224, 224), pool_size=(8, 8)),
     'efficientnet_b0': _cfg(
@@ -79,7 +79,7 @@ default_cfgs = {
 _DEBUG = False
 
 
-class EfficientI2RNet(nn.Module):
+class Efficientmnext(nn.Module):
     """ (Generic) EfficientNet
 
     A flexible and performant PyTorch implementation of efficient network architectures, including:
@@ -97,7 +97,7 @@ class EfficientI2RNet(nn.Module):
                  channel_multiplier=1.0, channel_divisor=8, channel_min=None,
                  pad_type='', act_layer=nn.ReLU, drop_rate=0., drop_connect_rate=0.,
                  se_kwargs=None, norm_layer=nn.BatchNorm2d, norm_kwargs=None, global_pool='avg'):
-        super(EfficientI2RNet, self).__init__()
+        super(Efficientmnext, self).__init__()
         norm_kwargs = norm_kwargs or {}
 
         self.num_classes = num_classes
@@ -314,7 +314,7 @@ class EfficientNetFeatures(nn.Module):
         return self.feature_hooks.get_output(x.device)
 
 
-def _create_model(model_kwargs, default_cfg, pretrained=False, efficienti2rnet=False):
+def _create_model(model_kwargs, default_cfg, pretrained=False, efficientmnext=False):
     if model_kwargs.pop('features_only', False):
         load_strict = False
         model_kwargs.pop('num_classes', 0)
@@ -323,8 +323,8 @@ def _create_model(model_kwargs, default_cfg, pretrained=False, efficienti2rnet=F
         model_class = EfficientNetFeatures
     else:
         load_strict = True
-        if efficienti2rnet:
-            model_class = EfficientI2RNet
+        if efficientmnext:
+            model_class = Efficientmnext
         else:
             model_class = EfficientNet
 
@@ -576,7 +576,7 @@ def _gen_efficientnet(variant, channel_multiplier=1.0, depth_multiplier=1.0, pre
     model = _create_model(model_kwargs, default_cfgs[variant], pretrained)
     return model
 
-def _gen_efficienti2rnet(variant, channel_multiplier=1.0, depth_multiplier=1.0, pretrained=False, arch_mode = 'large', **kwargs):
+def _gen_efficientmxnet(variant, channel_multiplier=1.0, depth_multiplier=1.0, pretrained=False, arch_mode = 'large', **kwargs):
     """Creates an EfficientNet model.
 
     Ref impl: https://github.com/tensorflow/tpu/blob/master/models/official/efficientnet/efficientnet_model.py
@@ -676,7 +676,7 @@ def _gen_efficienti2rnet(variant, channel_multiplier=1.0, depth_multiplier=1.0, 
         norm_kwargs=resolve_bn_args(kwargs),
         **kwargs,
     )
-    model = _create_model(model_kwargs, default_cfgs[variant], pretrained, efficienti2rnet=True)
+    model = _create_model(model_kwargs, default_cfgs[variant], pretrained, efficientmnext=True)
     # import pdb;pdb.set_trace()
     return model
 
@@ -823,20 +823,20 @@ def mbv2_140(pretrained=False,in_chans=3,drop_rate=0.2,drop_connect_rate=0.5,bn_
 def mnext_mbv2_cfg(pretrained=False,in_chans=3,drop_rate=0.2,drop_connect_rate=0.5,bn_tf=False,bn_momentum=0.9,bn_eps=0.001, global_pool=False, **kwargs):
     """Creates a MNeXt Large model. Tensorflow compatible variant
     """
-    from .i2rnetv3 import i2rnetv3
-    model = i2rnetv3(**kwargs)
+    from .mnext import mnext
+    model = mnext(**kwargs)
     return model
 @register_model
 def mnext_s(pretrained=False, margs=None, **kwargs):
     """ MobileNeXt small """
-    from .efficient_i2rnet.model import EfficientNet
-    model = EfficientNet.from_name('i2rnet-b0')
+    from .efficient_mnext.model import EfficientNet
+    model = EfficientNet.from_name('mnext-b0')
     return model
 @register_model
 def mnext_l(pretrained=False, margs=None, **kwargs):
     """ MobileNeXt large """
-    from .efficient_i2rnet.model import EfficientNet
+    from .efficient_mnext.model import EfficientNet
      # model = _create_model(model_kwargs, default_cfgs[variant], pretrained)
-    model = EfficientNet.from_name('i2rnet-b1', mgroup=2)
-    model.default_cfg = default_cfgs['efficienti2rnet_l']
+    model = EfficientNet.from_name('mnext-b1', mgroup=2)
+    model.default_cfg = default_cfgs['efficientmnext_l']
     return model
