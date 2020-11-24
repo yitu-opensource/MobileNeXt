@@ -144,8 +144,8 @@ def efficientnet_params(model_name):
     """ Map EfficientNet model name to parameter coefficients. """
     params_dict = {
         # Coefficients:   width,depth,res,dropout
-        'i2rnet-b0':(1.0, 1.0, 224, 0.2),
-        'i2rnet-b1':(1.0, 1.1, 240, 0.2),
+        'mnext-b0':(1.0, 1.0, 224, 0.2),
+        'mnext-b1':(1.0, 1.1, 240, 0.2),
         'efficientnet-b0': (1.0, 1.0, 224, 0.2),
         'efficientnet-b1': (1.0, 1.1, 240, 0.2),
         'efficientnet-b2': (1.1, 1.2, 260, 0.3),
@@ -302,7 +302,7 @@ def efficientnet(width_coefficient=None, depth_coefficient=None, dropout_rate=0.
 
 def get_model_params(model_name, override_params):
     """ Get the block args and global params for a given model """
-    if model_name.startswith('efficientnet') or model_name.startswith('i2rnet'):
+    if model_name.startswith('efficientnet') or model_name.startswith('mnext'):
         w, d, s, p = efficientnet_params(model_name)
         # note: all models have drop connect rate = 0.2
         blocks_args, global_params = efficientnet(
