@@ -2,9 +2,6 @@
 
 ## Updates 
 
-### Oct 26, 2020
-* Code adapted from repo [yitu-opensource MobileNeXt](https://github.com/yitu-opensource/MobileNeXt)
-
 ### Oct 27, 2020
 * Code for detection is [available](https://github.com/Andrew-Qibin/ssdlite-pytorch-mobilenext)
 
